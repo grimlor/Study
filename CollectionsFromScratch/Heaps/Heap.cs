@@ -1,4 +1,5 @@
 using System;
+
 namespace Study.CollectionsFromScratch
 {
     public class Heap<TValue> : IHeap<TValue> where TValue : IComparable<TValue>

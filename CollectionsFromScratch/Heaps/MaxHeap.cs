@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+
 namespace Study.CollectionsFromScratch
 {
     public class MaxHeap<TValue> : IHeap<TValue> where TValue : IComparable<TValue>
