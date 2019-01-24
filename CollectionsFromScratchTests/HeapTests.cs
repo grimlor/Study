@@ -12,8 +12,8 @@ namespace Study.CollectionsFromScratch.Tests
         {
             var testData = new [] { 5, 4, 3, 2, 1 };
             
-            IHeap<int> minHeap = new MinHeap<int>();
-            IHeap<int> maxHeap = new MaxHeap<int>();
+            IHeap<int> minHeap = new Heap<int>();
+            IHeap<int> maxHeap = new Heap<int>(HeapType.MaxHeap);
 
             foreach (var item in testData)
             {
@@ -27,8 +27,8 @@ namespace Study.CollectionsFromScratch.Tests
         {
             var testData = new [] { 5, 4, 3, 2, 1 };
             
-            IHeap<int> minHeap = new MinHeap<int>();
-            IHeap<int> maxHeap = new MaxHeap<int>();
+            IHeap<int> minHeap = new Heap<int>();
+            IHeap<int> maxHeap = new Heap<int>(HeapType.MaxHeap);
 
             foreach (var item in testData)
             {
@@ -45,10 +45,10 @@ namespace Study.CollectionsFromScratch.Tests
         {
             var testData = new [] { 5, 4, 3, 2, 1 };
 
-            IHeap<int> minHeap = new MinHeap<int>();
+            IHeap<int> minHeap = new Heap<int>();
             Assert.IsTrue(minHeap.IsEmpty());
 
-            IHeap<int> maxHeap = new MaxHeap<int>();
+            IHeap<int> maxHeap = new Heap<int>(HeapType.MaxHeap);
             Assert.IsTrue(maxHeap.IsEmpty());
 
             foreach (var item in testData)
@@ -66,8 +66,8 @@ namespace Study.CollectionsFromScratch.Tests
         {
             var testData = new [] { 5, 4, 3, 2, 1 };
 
-            IHeap<int> minHeap = new MinHeap<int>();
-            IHeap<int> maxHeap = new MaxHeap<int>();
+            IHeap<int> minHeap = new Heap<int>();
+            IHeap<int> maxHeap = new Heap<int>(HeapType.MaxHeap);
 
             for (int i = 0; i < testData.Length; i++)
             {
@@ -87,8 +87,8 @@ namespace Study.CollectionsFromScratch.Tests
         {
             var testData = new [] { 5, 4, 3, 2, 1 };
             
-            IHeap<int> minHeap = new MinHeap<int>();
-            IHeap<int> maxHeap = new MaxHeap<int>();
+            IHeap<int> minHeap = new Heap<int>();
+            IHeap<int> maxHeap = new Heap<int>(HeapType.MaxHeap);
 
             foreach (var item in testData)
             {
