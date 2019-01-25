@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <IsPackable>false</IsPackable>
-    <AssemblyName>CollectionsFromScratch.Tests</AssemblyName>
-    <RootNamespace>CollectionsFromScratch.Tests</RootNamespace>
+    <AssemblyName>CollectionsFromScratchTests</AssemblyName>
+    <RootNamespace>CollectionsFromScratchTests</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />

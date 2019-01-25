@@ -1,6 +1,7 @@
+using CollectionsFromScratch;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CollectionsFromScratch.Tests
+namespace CollectionsFromScratchTests
 {
     [TestClass]
     public class HeapTests
