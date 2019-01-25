@@ -2,8 +2,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Study.CollectionsFromScratch</AssemblyName>
-    <RootNamespace>Study.CollectionsFromScratch</RootNamespace>
+    <AssemblyName>CollectionsFromScratch</AssemblyName>
+    <RootNamespace>CollectionsFromScratch</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Heaps\MinHeap.cs" />

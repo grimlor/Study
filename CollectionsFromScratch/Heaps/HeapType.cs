@@ -1,4 +1,4 @@
-namespace Study.CollectionsFromScratch
+namespace CollectionsFromScratch
 {
     public enum HeapType
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Study.CollectionsFromScratch
+namespace CollectionsFromScratch
 {
     public class Heap<TValue> : IHeap<TValue> where TValue : IComparable<TValue>
     {
