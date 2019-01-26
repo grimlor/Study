@@ -7,33 +7,22 @@ namespace AlgorithmsFromScratch.Sorting
 {
     public static class HeapSort<TValue> where TValue : IComparable<TValue>
     {
-        public static void Sort(TValue[] values)
+        public static void Sort(IList<TValue> values)
         {
-            values = SortInternal(values).ToArray();
-        }
+            bool isArray = values.GetType().IsArray;
 
-        public static void Sort(List<TValue> values)
-        {
-            values = SortInternal(values).ToList();
-        }
-
-        static IList<TValue> SortInternal(IList<TValue> values)
-        {
             IHeap<TValue> heap = new Heap<TValue>();
-            
+
             foreach (TValue value in values)
             {
                 heap.Insert(value);
             }
 
-            TValue[] result = new TValue[heap.Size];
-
-            for (int i = 0; i < result.Length; i++)
+            int i = 0;
+            while (!heap.IsEmpty())
             {
-                result[i] = heap.Pop();
+                values[i++] = heap.Pop();
             }
-
-            return result;
         }
     }
 }
