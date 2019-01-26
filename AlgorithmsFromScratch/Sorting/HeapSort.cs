@@ -9,8 +9,6 @@ namespace AlgorithmsFromScratch.Sorting
     {
         public static void Sort(IList<TValue> values)
         {
-            bool isArray = values.GetType().IsArray;
-
             IHeap<TValue> heap = new Heap<TValue>();
 
             foreach (TValue value in values)
