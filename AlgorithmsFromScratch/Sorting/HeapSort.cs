@@ -7,7 +7,7 @@ namespace AlgorithmsFromScratch.Sorting
 {
     public static class HeapSort<TValue> where TValue : IComparable<TValue>
     {
-        public static void Sort(IList<TValue> values)
+        public static void SortWithHeap(IList<TValue> values)
         {
             IHeap<TValue> heap = new Heap<TValue>();
 

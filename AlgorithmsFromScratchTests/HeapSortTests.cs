@@ -9,21 +9,21 @@ namespace AlgorithmsFromScratchTests
     public class HeapSortTests
     {
         [TestMethod]
-        public void HeapSortListSortsMinToMax()
+        public void SortWithHeapListSortsMinToMax()
         {
             List<int> values = this.CreateRandomizedListOfValues();
 
-            HeapSort<int>.Sort(values);
+            HeapSort<int>.SortWithHeap(values);
 
             AssertMinToMax(values);
         }
 
         [TestMethod]
-        public void HeapSortArraySortsMinToMax()
+        public void SortWithHeapArraySortsMinToMax()
         {
             int[] values = this.CreateRandomizedListOfValues().ToArray();
 
-            HeapSort<int>.Sort(values);
+            HeapSort<int>.SortWithHeap(values);
 
             AssertMinToMax(values);
         }
