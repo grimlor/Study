@@ -70,15 +70,15 @@ namespace CollectionsFromScratchTests
 
             for (int i = 0; i < testData.Length; i++)
             {
-                Assert.AreEqual(i, minHeap.Size);
+                Assert.AreEqual(i, minHeap.Count);
                 minHeap.Insert(testData[i]);
 
-                Assert.AreEqual(i, maxHeap.Size);
+                Assert.AreEqual(i, maxHeap.Count);
                 maxHeap.Insert(testData[i]);
             }
 
-            Assert.AreEqual(testData.Length, minHeap.Size);
-            Assert.AreEqual(testData.Length, maxHeap.Size);
+            Assert.AreEqual(testData.Length, minHeap.Count);
+            Assert.AreEqual(testData.Length, maxHeap.Count);
         }
 
         [TestMethod]

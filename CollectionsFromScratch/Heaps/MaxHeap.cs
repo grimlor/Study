@@ -12,7 +12,7 @@ namespace CollectionsFromScratch
             this.maxHeap = new MaxHeap<TValue, TValue>();
         }
 
-        public int Size { get { return this.maxHeap.Size; } }
+        public int Count { get { return this.maxHeap.Count; } }
 
         public void Insert(TValue value)
         {
@@ -44,13 +44,13 @@ namespace CollectionsFromScratch
             this.maxHeap = new List<KeyValuePair<TPriority, TValue>>();
         }
 
-        public int Size { get; private set; }
+        public int Count { get; private set; }
 
         public void Insert(TPriority priority, TValue value)
         {
             // Heap inserts are always to the end of the list
             this.maxHeap.Add(new KeyValuePair<TPriority, TValue>(priority, value));
-            this.Size++;
+            this.Count++;
 
             // Then we swim that last item up to its appropriate location in the heap
             this.Swim();
@@ -58,7 +58,7 @@ namespace CollectionsFromScratch
 
         public bool IsEmpty()
         {
-            return this.Size == 0;
+            return this.Count == 0;
         }
 
         public TValue Peek()
@@ -72,8 +72,8 @@ namespace CollectionsFromScratch
             TValue maxValue = Peek();
 
             // Move last item into first position and delete the last item from list
-            this.maxHeap[0] = this.maxHeap[--this.Size];
-            this.maxHeap.RemoveAt(this.Size);
+            this.maxHeap[0] = this.maxHeap[--this.Count];
+            this.maxHeap.RemoveAt(this.Count);
 
             // Sink the new first item to its appropriate location in heap
             this.Sink();
@@ -115,7 +115,7 @@ namespace CollectionsFromScratch
 
         void Swim()
         {
-            int currentIndex = this.Size - 1;
+            int currentIndex = this.Count - 1;
 
             while (this.HasParent(currentIndex))
             {
@@ -134,7 +134,7 @@ namespace CollectionsFromScratch
 
         bool HasLeftChild(int currentIndex)
         {
-            return this.GetLeftChildIndex(currentIndex) < this.Size;
+            return this.GetLeftChildIndex(currentIndex) < this.Count;
         }
 
         int GetLeftChildIndex(int currentIndex)
@@ -144,7 +144,7 @@ namespace CollectionsFromScratch
 
         bool HasRightChild(int currentIndex)
         {
-            return this.GetRightChildIndex(currentIndex) < this.Size;
+            return this.GetRightChildIndex(currentIndex) < this.Count;
         }
 
         int GetRightChildIndex(int currentIndex)

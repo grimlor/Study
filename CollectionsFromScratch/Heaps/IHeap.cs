@@ -4,7 +4,7 @@ namespace CollectionsFromScratch
 {
     public interface IHeap<TValue> where TValue : IComparable<TValue>
     {
-         int Size { get; }
+         int Count { get; }
 
          bool IsEmpty();
 
@@ -17,7 +17,7 @@ namespace CollectionsFromScratch
 
     public interface IHeap<TPriority, TValue> where TPriority : IComparable<TPriority>
     {
-         int Size { get; }
+         int Count { get; }
 
          bool IsEmpty();
 

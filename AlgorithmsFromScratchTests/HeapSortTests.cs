@@ -9,6 +9,26 @@ namespace AlgorithmsFromScratchTests
     public class HeapSortTests
     {
         [TestMethod]
+        public void HeapSortSortsAscending()
+        {
+            List<int> values = this.CreateRandomizedListOfValues();
+
+            HeapSort<int>.Sort(values);
+
+            AssertMinToMax(values);
+        }
+
+        [TestMethod]
+        public void HeapSortSortsDescending()
+        {
+            List<int> values = this.CreateRandomizedListOfValues();
+
+            HeapSort<int>.Sort(values, SortOrder.Descending);
+
+            AssertMaxToMin(values);
+        }
+
+        [TestMethod]
         public void SortWithHeapListSortsMinToMax()
         {
             List<int> values = this.CreateRandomizedListOfValues();
@@ -35,6 +55,17 @@ namespace AlgorithmsFromScratchTests
             {
                 int nextValue = values[i];
                 Assert.IsTrue(currentValue <= nextValue);
+                currentValue = nextValue;
+            }
+        }
+
+        void AssertMaxToMin(IList<int> values)
+        {
+            int currentValue = values[0];
+            for (int i = 1; i < values.Count; i++)
+            {
+                int nextValue = values[i];
+                Assert.IsTrue(currentValue >= nextValue);
                 currentValue = nextValue;
             }
         }

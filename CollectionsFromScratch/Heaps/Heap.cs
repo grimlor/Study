@@ -23,7 +23,7 @@ namespace CollectionsFromScratch
             }
         }
 
-        public int Size { get {return this.heap.Size; } }
+        public int Count { get {return this.heap.Count; } }
 
         public void Insert(TValue value)
         {
@@ -67,7 +67,7 @@ namespace CollectionsFromScratch
             }
         }
 
-        public int Size { get {return this.heap.Size; } }
+        public int Count { get {return this.heap.Count; } }
 
         public void Insert(TPriority priority, TValue value)
         {

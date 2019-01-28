@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CollectionsFromScratch
 {
@@ -12,7 +13,13 @@ namespace CollectionsFromScratch
             this.minHeap = new MinHeap<TValue, TValue>();
         }
 
-        public int Size { get { return this.minHeap.Size; } }
+        public MinHeap(IList<TValue> values)
+        {
+            this.minHeap = new MinHeap<TValue, TValue>(
+                values.Select(v => new KeyValuePair<TValue, TValue>(v, v)).ToList());
+        }
+
+        public int Count { get { return this.minHeap.Count; } }
 
         public bool IsEmpty()
         {
@@ -37,25 +44,31 @@ namespace CollectionsFromScratch
 
     public class MinHeap<TPriority, TValue> : IHeap<TPriority, TValue> where TPriority : IComparable<TPriority>
     {
-        List<KeyValuePair<TPriority, TValue>> minHeap;
+        IList<KeyValuePair<TPriority, TValue>> minHeap;
 
         public MinHeap()
         {
             this.minHeap = new List<KeyValuePair<TPriority, TValue>>();
         }
 
-        public int Size { get; private set; }
+        public MinHeap(IList<KeyValuePair<TPriority, TValue>> pairs)
+        {
+            this.minHeap = pairs;
+            this.Heapify();
+        }
+
+        public int Count { get; private set; }
 
         public bool IsEmpty()
         {
-            return this.Size == 0;
+            return this.Count == 0;
         }
 
         public void Insert(TPriority priority, TValue value)
         {
             // Heap inserts are always to the end of the list
             this.minHeap.Add(new KeyValuePair<TPriority, TValue>(priority, value));
-            this.Size++;
+            this.Count++;
 
             // Then we swim that last item up to its appropriate location in the heap
             this.Swim();
@@ -72,13 +85,18 @@ namespace CollectionsFromScratch
             var currentMin = Peek();
 
             // Move last item into first position and delete the last item from list
-            this.minHeap[0] = this.minHeap[--this.Size];
-            this.minHeap.RemoveAt(this.Size);
+            this.minHeap[0] = this.minHeap[--this.Count];
+            this.minHeap.RemoveAt(this.Count);
             
             // Sink the new first item to its appropriate location in heap
             this.Sink();
 
             return currentMin;
+        }
+
+        void Heapify()
+        {
+            throw new NotImplementedException();
         }
 
         void Sink()
@@ -115,7 +133,7 @@ namespace CollectionsFromScratch
 
         void Swim()
         {
-            int currentIndex = this.Size - 1;
+            int currentIndex = this.Count - 1;
 
             while (this.HasParent(currentIndex))
             {
@@ -134,7 +152,7 @@ namespace CollectionsFromScratch
 
         bool HasLeftChild(int currentIndex)
         {
-            return this.GetLeftChildIndex(currentIndex) < this.Size;
+            return this.GetLeftChildIndex(currentIndex) < this.Count;
         }
 
         int GetLeftChildIndex(int currentIndex)
@@ -144,7 +162,7 @@ namespace CollectionsFromScratch
 
         bool HasRightChild(int currentIndex)
         {
-            return this.GetRightChildIndex(currentIndex) < this.Size;
+            return this.GetRightChildIndex(currentIndex) < this.Count;
         }
 
         int GetRightChildIndex(int currentIndex)
