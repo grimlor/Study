@@ -1,3 +1,5 @@
+﻿using System;
+using System.Collections.Generic;
 using CollectionsFromScratch;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -6,6 +8,14 @@ namespace CollectionsFromScratchTests
     [TestClass]
     public class HeapTests
     {
+        [TestMethod]
+        public void CanInitializeHeapWithArray()
+        {
+            var testData = new[] { 5, 4, 3, 2, 1 };
+
+            IHeap<int> minHeap = new Heap<int>(testData);
+        }
+
         [TestMethod]
         public void CanAddToHeap()
         {
@@ -18,6 +28,25 @@ namespace CollectionsFromScratchTests
             {
                 minHeap.Insert(item);
                 maxHeap.Insert(item);
+            }
+        }
+
+        [TestMethod]
+        public void WillNotExceedMaxCount()
+        {
+            var testData = new[] { 5, 4, 3, 2, 1 };
+
+            int k = 3;
+            IHeap<int> kSmallestHeap = new Heap<int>(k, HeapType.MaxHeap);
+
+            foreach (var item in testData)
+            {
+                kSmallestHeap.Insert(item);
+            }
+
+            for (int i = 2; i < kSmallestHeap.Count; i++)
+            {
+                Assert.AreEqual(testData[i], kSmallestHeap.Pop());
             }
         }
 
@@ -61,7 +90,7 @@ namespace CollectionsFromScratchTests
         }
 
         [TestMethod]
-        public void SizeIsCorrect()
+        public void CountIsCorrect()
         {
             var testData = new [] { 5, 4, 3, 2, 1 };
 
@@ -82,7 +111,7 @@ namespace CollectionsFromScratchTests
         }
 
         [TestMethod]
-        public void HeapSortWorks()
+        public void HeapSortsCorrectly()
         {
             var testData = new [] { 5, 4, 3, 2, 1 };
             
@@ -100,6 +129,54 @@ namespace CollectionsFromScratchTests
                 Assert.AreEqual(i, minHeap.Pop());
                 Assert.AreEqual(6 - i, maxHeap.Pop());
             }
+        }
+
+        [TestMethod]
+        public void SortUsingHeapWorks()
+        {
+            List<int> values = this.CreateRandomizedListOfValues();
+
+            IHeap<int> minHeap = new Heap<int>(values);
+            AssertMinToMax(minHeap);
+
+            IHeap<int> maxHeap = new Heap<int>(values, HeapType.MaxHeap);
+            AssertMaxToMin(maxHeap);
+        }
+
+        void AssertMinToMax(IHeap<int> minHeap)
+        {
+            int currentValue = minHeap.Pop();
+            for (int i = 1; i < minHeap.Count; i++)
+            {
+                int nextValue = minHeap.Pop();
+                Assert.IsTrue(currentValue <= nextValue);
+                currentValue = nextValue;
+            }
+        }
+
+        void AssertMaxToMin(IHeap<int> maxHeap)
+        {
+            int currentValue = maxHeap.Pop();
+            for (int i = 1; i < maxHeap.Count; i++)
+            {
+                int nextValue = maxHeap.Pop();
+                Assert.IsTrue(currentValue >= nextValue);
+                currentValue = nextValue;
+            }
+        }
+
+        List<int> CreateRandomizedListOfValues(int maxSize = 10)
+        {
+            var values = new List<int>();
+
+            var rnd = new Random();
+
+            for (int i = 0; i < maxSize; i++)
+            {
+                values.Add(rnd.Next());
+            }
+
+            return values;
         }
     }
 }

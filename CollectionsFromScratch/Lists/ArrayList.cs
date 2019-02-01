@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CollectionsFromScratch.Lists
+namespace CollectionsFromScratch
 {
     public class ArrayList<T> : IList<T>
     {
@@ -93,9 +93,9 @@ namespace CollectionsFromScratch.Lists
             this.count++;
             this.Resize();
 
-            for (int i = this.count - 1; i >= index; i--)
+            for (int i = this.count - 1; i > index; i--)
             {
-                this[i + 1] = this[i];
+                this[i] = this[i - 1];
             }
 
             this[index] = item;

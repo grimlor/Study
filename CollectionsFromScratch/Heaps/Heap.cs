@@ -1,93 +1,187 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CollectionsFromScratch
 {
-    public class Heap<TValue> : IHeap<TValue> where TValue : IComparable<TValue>
+    public class Heap<TValue> : Heap<TValue, TValue>, IHeap<TValue> where TValue : IComparable<TValue>
     {
-        IHeap<TValue> heap;
-
-        public Heap() : this(HeapType.MinHeap)
+        public Heap() : base()
         {
         }
 
-        public Heap(HeapType type)
+        public Heap(int maxCount) : base(maxCount)
         {
-            switch (type)
-            {
-                case HeapType.MaxHeap:
-                    this.heap = new MaxHeap<TValue>();
-                    break;
-                default:
-                    this.heap = new MinHeap<TValue>();
-                    break;
-            }
         }
 
-        public int Count { get {return this.heap.Count; } }
+        public Heap(HeapType heapType) :base(heapType)
+        {
+        }
+
+        public Heap(int maxCount, HeapType heapType) : base(maxCount, heapType)
+        {
+        }
+
+        public Heap(IList<TValue> values)
+            : base(values.Select(v => new KeyValuePair<TValue, TValue>(v, v)).ToList())
+        {
+        }
+
+        public Heap(IList<TValue> values, HeapType heapType)
+            : base(values.Select(v => new KeyValuePair<TValue, TValue>(v, v)).ToList(), heapType)
+        {
+        }
 
         public void Insert(TValue value)
         {
-            this.heap.Insert(value);
-        }
-
-        public bool IsEmpty()
-        {
-            return this.heap.IsEmpty();
-        }
-
-        public TValue Peek()
-        {
-            return this.heap.Peek();
-        }
-
-        public TValue Pop()
-        {
-            return this.heap.Pop();
+            base.Insert(value, value);
         }
     }
 
     public class Heap<TPriority, TValue> : IHeap<TPriority, TValue> where TPriority : IComparable<TPriority>
     {
-        IHeap<TPriority, TValue> heap;
+        IList<KeyValuePair<TPriority, TValue>> heap;
 
-        public Heap()
+        int maxCount = -1;
+
+        public int Count => this.heap.Count;
+
+        Func<int, int, bool> ShouldSwap;
+
+        public Heap() : this(HeapType.MinHeap)
         {
         }
 
-        public Heap(HeapType type)
+        public Heap(HeapType heapType)
         {
-            switch (type)
-            {
-                case HeapType.MaxHeap:
-                    this.heap = new MaxHeap<TPriority, TValue>();
-                    break;
-                default:
-                    this.heap = new MinHeap<TPriority, TValue>();
-                    break;
-            }
+            this.heap = new ArrayList<KeyValuePair<TPriority, TValue>>();
+
+            this.SetShouldSwapFunction(heapType);
         }
 
-        public int Count { get {return this.heap.Count; } }
+        public Heap(int maxCount) : this(maxCount, HeapType.MinHeap)
+        {
+        }
+
+        public Heap(int maxCount, HeapType heapType)
+        {
+            this.heap = new ArrayList<KeyValuePair<TPriority, TValue>>();
+
+            this.maxCount = maxCount;
+
+            this.SetShouldSwapFunction(heapType);
+        }
+
+        public Heap(IList<KeyValuePair<TPriority, TValue>> values) : this(values, HeapType.MinHeap)
+        {
+        }
+
+        public Heap(IList<KeyValuePair<TPriority, TValue>> values, HeapType heapType)
+        {
+            this.heap = values.ToList();
+
+            this.SetShouldSwapFunction(heapType);
+
+            this.Heapify();
+        }
 
         public void Insert(TPriority priority, TValue value)
         {
-            this.heap.Insert(priority, value);
+            this.heap.Add(new KeyValuePair<TPriority, TValue>(priority, value));
+
+            this.Swim(this.Count - 1);
+
+            if (this.maxCount > 0 && this.Count > this.maxCount)
+            {
+                this.heap.RemoveAt(0);
+                this.Heapify();
+            }
         }
 
         public bool IsEmpty()
         {
-            return this.heap.IsEmpty();
+            return this.Count == 0;
         }
 
         public TValue Peek()
         {
-            return this.heap.Peek();
+            return this.heap[0].Value;
         }
 
         public TValue Pop()
         {
-            return this.heap.Pop();
+            TValue returnVal = Peek();
+
+            this.heap[0] = this.heap[this.Count - 1];
+            this.heap.RemoveAt(this.Count - 1);
+            this.Sink(0);
+
+            return returnVal;
+        }
+
+        void Sink(int parentIdx)
+        {
+            while (2 * parentIdx + 1 < this.Count)
+            {
+                int childIdx = 2 * parentIdx + 1;
+                if (childIdx + 1 < this.Count && this.ShouldSwap(childIdx, childIdx + 1)) { childIdx++; }
+                if (!this.ShouldSwap(parentIdx, childIdx)) { break; }
+                this.Swap(parentIdx, childIdx);
+                parentIdx = childIdx;
+            }
+        }
+
+        void Swim(int childIdx)
+        {
+            while (childIdx > 0)
+            {
+                int parentIdx = (childIdx - 1) / 2;
+                if (!this.ShouldSwap(parentIdx, childIdx))
+                {
+                    break;
+                }
+                this.Swap(parentIdx, childIdx);
+                childIdx = parentIdx;
+            }
+        }
+
+        void Heapify()
+        {
+            int parentIdx = this.Count / 2 - 1;
+            while (parentIdx >= 0)
+            {
+                this.Sink(parentIdx);
+                parentIdx--;
+            }
+        }
+
+        void SetShouldSwapFunction(HeapType heapType)
+        {
+            if (heapType == HeapType.MinHeap)
+            {
+                this.ShouldSwap = this.MinEval;
+            }
+            else
+            {
+                this.ShouldSwap = this.MaxEval;
+            }
+        }
+
+        bool MinEval(int i, int j)
+        {
+            return this.heap[i].Key.CompareTo(this.heap[j].Key) > 0;
+        }
+
+        bool MaxEval(int i, int j)
+        {
+            return this.heap[i].Key.CompareTo(this.heap[j].Key) < 0;
+        }
+
+        void Swap(int i, int j)
+        {
+            var tmp = this.heap[i];
+            this.heap[i] = this.heap[j];
+            this.heap[j] = tmp;
         }
     }
-    
 }

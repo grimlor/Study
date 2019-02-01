@@ -1,5 +1,5 @@
 using System;
-using CollectionsFromScratch.Lists;
+using CollectionsFromScratch;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CollectionsFromScratchTests
