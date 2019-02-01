@@ -1,12 +1,7 @@
-﻿//----------------------------------------------------------------
-// <copyright company="Microsoft Corporation">
-//     Copyright (c) Microsoft Corporation.  All rights reserved.
-// </copyright>
-//----------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CollectionsFromScratch.Lists;
 
 namespace CollectionsFromScratch.Heaps
 {
@@ -17,6 +12,10 @@ namespace CollectionsFromScratch.Heaps
         }
 
         public SimpleHeap(int maxCount) : base(maxCount)
+        {
+        }
+
+        public SimpleHeap(int maxCount, HeapType heapType) : base(maxCount, heapType)
         {
         }
 
@@ -40,11 +39,11 @@ namespace CollectionsFromScratch.Heaps
     {
         IList<KeyValuePair<TPriority, TValue>> heap;
 
-        int maxCount;
+        int maxCount = -1;
 
         public int Count => this.heap.Count;
 
-        Func<KeyValuePair<TPriority, TValue>, bool> ShouldSwap;
+        Func<int, int, bool> ShouldSwap;
 
         public SimpleHeap() : this(HeapType.MinHeap)
         {
@@ -52,12 +51,9 @@ namespace CollectionsFromScratch.Heaps
 
         public SimpleHeap(HeapType heapType)
         {
-            this.heap = new List<KeyValuePair<TPriority, TValue>>();
+            this.heap = new ArrayList<KeyValuePair<TPriority, TValue>>();
 
-            this.ShouldSwap =
-                heapType == HeapType.MinHeap
-                ? (Func<KeyValuePair<TPriority, TValue>, bool>)this.MinEval
-                : this.MaxEval;
+            this.SetShouldSwapFunction(heapType);
         }
 
         public SimpleHeap(int maxCount) : this(maxCount, HeapType.MinHeap)
@@ -66,14 +62,11 @@ namespace CollectionsFromScratch.Heaps
 
         public SimpleHeap(int maxCount, HeapType heapType)
         {
-            this.heap = new List<KeyValuePair<TPriority, TValue>>();
+            this.heap = new ArrayList<KeyValuePair<TPriority, TValue>>();
 
             this.maxCount = maxCount;
 
-            this.ShouldSwap =
-                heapType == HeapType.MinHeap
-                ? (Func<KeyValuePair<TPriority, TValue>, bool>)this.MinEval
-                : this.MaxEval;
+            this.SetShouldSwapFunction(heapType);
         }
 
         public SimpleHeap(IList<KeyValuePair<TPriority, TValue>> values) : this(values, HeapType.MinHeap)
@@ -84,10 +77,7 @@ namespace CollectionsFromScratch.Heaps
         {
             this.heap = values.ToList();
 
-            this.ShouldSwap =
-                heapType == HeapType.MinHeap
-                ? (Func<KeyValuePair<TPriority, TValue>, bool>)this.MinEval
-                : this.MaxEval;
+            this.SetShouldSwapFunction(heapType);
 
             this.Heapify();
         }
@@ -96,11 +86,12 @@ namespace CollectionsFromScratch.Heaps
         {
             this.heap.Add(new KeyValuePair<TPriority, TValue>(priority, value));
 
-            this.Swim();
+            this.Swim(this.Count - 1);
 
-            if (this.Count > this.maxCount)
+            if (this.maxCount > 0 && this.Count > this.maxCount)
             {
-                this.heap.RemoveAt(this.Count);
+                this.heap.RemoveAt(0);
+                this.Heapify();
             }
         }
 
@@ -120,34 +111,74 @@ namespace CollectionsFromScratch.Heaps
 
             this.heap[0] = this.heap[this.Count - 1];
             this.heap.RemoveAt(this.Count - 1);
-            this.Sink();
+            this.Sink(0);
 
             return returnVal;
         }
 
-        void Sink()
+        void Sink(int parentIdx)
         {
-            throw new NotImplementedException();
+            while (2 * parentIdx + 1 < this.Count)
+            {
+                int childIdx = 2 * parentIdx + 1;
+                if (childIdx + 1 < this.Count && this.ShouldSwap(childIdx, childIdx + 1)) { childIdx++; }
+                if (!this.ShouldSwap(parentIdx, childIdx)) { break; }
+                this.Swap(parentIdx, childIdx);
+                parentIdx = childIdx;
+            }
         }
 
-        void Swim()
+        void Swim(int childIdx)
         {
-            throw new NotImplementedException();
+            while (childIdx > 0)
+            {
+                int parentIdx = (childIdx - 1) / 2;
+                if (!this.ShouldSwap(parentIdx, childIdx))
+                {
+                    break;
+                }
+                this.Swap(parentIdx, childIdx);
+                childIdx = parentIdx;
+            }
         }
 
         void Heapify()
         {
-            throw new NotImplementedException();
+            int parentIdx = this.Count / 2 - 1;
+            while (parentIdx >= 0)
+            {
+                this.Sink(parentIdx);
+                parentIdx--;
+            }
         }
 
-        bool MinEval(KeyValuePair<TPriority, TValue> parent)
+        void SetShouldSwapFunction(HeapType heapType)
         {
-            throw new NotImplementedException();
+            if (heapType == HeapType.MinHeap)
+            {
+                this.ShouldSwap = this.MinEval;
+            }
+            else
+            {
+                this.ShouldSwap = this.MaxEval;
+            }
         }
 
-        bool MaxEval(KeyValuePair<TPriority, TValue> parent)
+        bool MinEval(int i, int j)
         {
-            throw new NotImplementedException();
+            return this.heap[i].Key.CompareTo(this.heap[j].Key) > 0;
+        }
+
+        bool MaxEval(int i, int j)
+        {
+            return this.heap[i].Key.CompareTo(this.heap[j].Key) < 0;
+        }
+
+        void Swap(int i, int j)
+        {
+            var tmp = this.heap[i];
+            this.heap[i] = this.heap[j];
+            this.heap[j] = tmp;
         }
     }
 }
