@@ -8,5 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CollectionsFromScratch\CollectionsFromScratch.csproj" />
     <Content Include="Sorting\HeapSort.cs" />
+    <Content Include="Sorting\SortOrder.cs" />
+    <Content Include="Sorting\SelectionSort.cs" />
   </ItemGroup>
 </Project>

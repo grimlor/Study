@@ -14,5 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AlgorithmsFromScratch\AlgorithmsFromScratch.csproj" />
     <Content Include="HeapSortTests.cs" />
+    <Content Include="SortTestUtils.cs" />
+    <Content Include="SelectionSortTests.cs" />
   </ItemGroup>
 </Project>

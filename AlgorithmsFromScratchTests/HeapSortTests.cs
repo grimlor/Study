@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using AlgorithmsFromScratch.Sorting;
@@ -11,77 +12,41 @@ namespace AlgorithmsFromScratchTests
         [TestMethod]
         public void HeapSortSortsAscending()
         {
-            List<int> values = this.CreateRandomizedListOfValues();
+            IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
             HeapSort<int>.Sort(values);
 
-            AssertMinToMax(values);
+            values.AssertMinToMax();
         }
 
         [TestMethod]
         public void HeapSortSortsDescending()
         {
-            List<int> values = this.CreateRandomizedListOfValues();
+            IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
             HeapSort<int>.Sort(values, SortOrder.Descending);
 
-            AssertMaxToMin(values);
+            values.AssertMaxToMin();
         }
 
         [TestMethod]
         public void SortWithHeapListSortsMinToMax()
         {
-            List<int> values = this.CreateRandomizedListOfValues();
+            IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
             HeapSort<int>.SortWithHeap(values);
 
-            AssertMinToMax(values);
+            values.AssertMinToMax();
         }
 
         [TestMethod]
         public void SortWithHeapArraySortsMinToMax()
         {
-            int[] values = this.CreateRandomizedListOfValues().ToArray();
+            IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
             HeapSort<int>.SortWithHeap(values);
 
-            AssertMinToMax(values);
-        }
-
-        void AssertMinToMax(IList<int> values)
-        {
-            int currentValue = values[0];
-            for (int i = 1; i < values.Count; i++)
-            {
-                int nextValue = values[i];
-                Assert.IsTrue(currentValue <= nextValue);
-                currentValue = nextValue;
-            }
-        }
-
-        void AssertMaxToMin(IList<int> values)
-        {
-            int currentValue = values[0];
-            for (int i = 1; i < values.Count; i++)
-            {
-                int nextValue = values[i];
-                Assert.IsTrue(currentValue >= nextValue);
-                currentValue = nextValue;
-            }
-        }
-
-        List<int> CreateRandomizedListOfValues(int maxSize = 10)
-        {
-            var values = new List<int>();
-
-            var rnd = new Random();
-
-            for (int i = 0; i < maxSize; i++)
-            {
-                values.Add(rnd.Next());
-            }
-
-            return values;
+            values.AssertMinToMax();
         }
     }
 }
