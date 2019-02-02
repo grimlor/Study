@@ -10,5 +10,6 @@
     <Content Include="Sorting\HeapSort.cs" />
     <Content Include="Sorting\SortOrder.cs" />
     <Content Include="Sorting\SelectionSort.cs" />
+    <Content Include="Sorting\InsertionSort.cs" />
   </ItemGroup>
 </Project>

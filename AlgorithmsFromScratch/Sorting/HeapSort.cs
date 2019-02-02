@@ -67,15 +67,15 @@ namespace AlgorithmsFromScratch.Sorting
 
         static bool ShouldSwap(IList<TValue> values, int i, int j, SortOrder sortOrder)
         {
-            return sortOrder == SortOrder.Ascending ? MinEval(values, i, j) : MaxEval(values, i, j);
+            return sortOrder == SortOrder.Ascending ? Lesser(values, i, j) : Greater(values, i, j);
         }
 
-        static bool MinEval(IList<TValue> values, int i, int j)
+        static bool Lesser(IList<TValue> values, int i, int j)
         {
             return values[i].CompareTo(values[j]) < 0;
         }
 
-        static bool MaxEval(IList<TValue> values, int i, int j)
+        static bool Greater(IList<TValue> values, int i, int j)
         {
             return values[i].CompareTo(values[j]) > 0;
         }

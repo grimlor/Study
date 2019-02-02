@@ -3,24 +3,22 @@ using System.Collections.Generic;
 
 namespace AlgorithmsFromScratch.Sorting
 {
-    public static class SelectionSort<TValue> where TValue : IComparable<TValue>
+    public static class InsertionSort<TValue> where TValue : IComparable<TValue>
     {
         public static void Sort(IList<TValue> values, SortOrder sortOrder = SortOrder.Ascending)
         {
             for (int i = 0; i < values.Count - 1; i++)
             {
-                int toSwap = i;
-                for (int j = i + 1; j < values.Count; j++)
+                for (int j = i + 1; j > 0 && ShouldSwap(values, j, j - 1, sortOrder); j--)
                 {
-                    toSwap = ShouldSwap(values, toSwap, j, sortOrder) ? j : toSwap;
+                    Swap(values, j, j - 1);
                 }
-                Swap(values, i, toSwap);
             }
         }
 
         static bool ShouldSwap(IList<TValue> values, int i, int j, SortOrder sortOrder)
         {
-            return sortOrder == SortOrder.Ascending ? Greater(values, i, j) : Lesser(values, i, j);
+            return sortOrder == SortOrder.Ascending ? Lesser(values, i, j) : Greater(values, i, j);
         }
 
         static bool Lesser(IList<TValue> values, int i, int j)
