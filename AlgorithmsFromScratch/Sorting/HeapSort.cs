@@ -33,7 +33,7 @@ namespace AlgorithmsFromScratch.Sorting
             int haltIdx = values.Count - 1;
             while (haltIdx > 0)
             {
-                Swap(values, 0, haltIdx--);
+                SortCommon.Swap(values, 0, haltIdx--);
                 Sink(values, 0, haltIdx, sortOrder);
             }
         }
@@ -60,31 +60,14 @@ namespace AlgorithmsFromScratch.Sorting
                 int childIdx = 2 * parentIdx + 1;
                 if (childIdx + 1 <= haltIdx && ShouldSwap(values, childIdx, childIdx + 1, sortOrder)) { childIdx++; }
                 if (!ShouldSwap(values, parentIdx, childIdx, sortOrder)) { break; }
-                Swap(values, parentIdx, childIdx);
+                SortCommon.Swap(values, parentIdx, childIdx);
                 parentIdx = childIdx;
             }
         }
 
         static bool ShouldSwap<TValue>(IList<TValue> values, int i, int j, SortOrder sortOrder) where TValue : IComparable<TValue>
         {
-            return sortOrder == SortOrder.Ascending ? Lesser(values, i, j) : Greater(values, i, j);
-        }
-
-        static bool Lesser<TValue>(IList<TValue> values, int i, int j) where TValue : IComparable<TValue>
-        {
-            return values[i].CompareTo(values[j]) < 0;
-        }
-
-        static bool Greater<TValue>(IList<TValue> values, int i, int j) where TValue : IComparable<TValue>
-        {
-            return values[i].CompareTo(values[j]) > 0;
-        }
-
-        static void Swap<TValue>(IList<TValue> values, int i, int j) where TValue : IComparable<TValue>
-        {
-            var tmp = values[i];
-            values[i] = values[j];
-            values[j] = tmp;
+            return sortOrder == SortOrder.Ascending ? SortCommon.Lesser(values, i, j) : SortCommon.Greater(values, i, j);
         }
     }
 }

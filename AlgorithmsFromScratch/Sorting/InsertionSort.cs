@@ -9,33 +9,11 @@ namespace AlgorithmsFromScratch.Sorting
         {
             for (int i = 1; i < values.Count; i++)
             {
-                for (int j = i; j > 0 && ShouldSwap(values, j, j - 1, sortOrder); j--)
+                for (int j = i; j > 0 && SortCommon.ShouldSwap(values, j, j - 1, sortOrder); j--)
                 {
-                    Swap(values, j, j - 1);
+                    SortCommon.Swap(values, j, j - 1);
                 }
             }
-        }
-
-        static bool ShouldSwap<TValue>(IList<TValue> values, int i, int j, SortOrder sortOrder) where TValue : IComparable<TValue>
-        {
-            return sortOrder == SortOrder.Ascending ? Lesser(values, i, j) : Greater(values, i, j);
-        }
-
-        static bool Lesser<TValue>(IList<TValue> values, int i, int j) where TValue : IComparable<TValue>
-        {
-            return values[i].CompareTo(values[j]) < 0;
-        }
-
-        static bool Greater<TValue>(IList<TValue> values, int i, int j) where TValue : IComparable<TValue>
-        {
-            return values[i].CompareTo(values[j]) > 0;
-        }
-
-        static void Swap<TValue>(IList<TValue> values, int i, int j) where TValue : IComparable<TValue>
-        {
-            var tmp = values[i];
-            values[i] = values[j];
-            values[j] = tmp;
         }
     }
 }
