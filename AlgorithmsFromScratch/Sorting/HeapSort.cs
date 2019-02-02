@@ -4,9 +4,9 @@ using CollectionsFromScratch;
 
 namespace AlgorithmsFromScratch.Sorting
 {
-    public static class HeapSort<TValue> where TValue : IComparable<TValue>
+    public static class HeapSort
     {
-        public static void SortWithHeap(IList<TValue> values)
+        public static void SortWithHeap<TValue>(IList<TValue> values) where TValue : IComparable<TValue>
         {
             IHeap<TValue> heap = new Heap<TValue>();
 
@@ -22,13 +22,13 @@ namespace AlgorithmsFromScratch.Sorting
             }
         }
 
-        public static void Sort(IList<TValue> values, SortOrder sortOrder = SortOrder.Ascending)
+        public static void Sort<TValue>(IList<TValue> values, SortOrder sortOrder = SortOrder.Ascending) where TValue : IComparable<TValue>
         {
             Heapify(values, sortOrder);
             SortDown(values, sortOrder);
         }
 
-        static void SortDown(IList<TValue> values, SortOrder sortOrder)
+        static void SortDown<TValue>(IList<TValue> values, SortOrder sortOrder) where TValue : IComparable<TValue>
         {
             int haltIdx = values.Count - 1;
             while (haltIdx > 0)
@@ -38,7 +38,7 @@ namespace AlgorithmsFromScratch.Sorting
             }
         }
 
-        static void Heapify(IList<TValue> values, SortOrder sortOrder)
+        static void Heapify<TValue>(IList<TValue> values, SortOrder sortOrder) where TValue : IComparable<TValue>
         {
             int parentIdx = values.Count / 2 - 1;
             while (parentIdx >= 0)
@@ -48,12 +48,12 @@ namespace AlgorithmsFromScratch.Sorting
             }
         }
 
-        static void Sink(IList<TValue> values, int parentIdx, SortOrder sortOrder)
+        static void Sink<TValue>(IList<TValue> values, int parentIdx, SortOrder sortOrder) where TValue : IComparable<TValue>
         {
             Sink(values, parentIdx, values.Count - 1, sortOrder);
         }
 
-        static void Sink(IList<TValue> values, int parentIdx, int haltIdx, SortOrder sortOrder)
+        static void Sink<TValue>(IList<TValue> values, int parentIdx, int haltIdx, SortOrder sortOrder) where TValue : IComparable<TValue>
         {
             while (2 * parentIdx + 1 <= haltIdx)
             {
@@ -65,22 +65,22 @@ namespace AlgorithmsFromScratch.Sorting
             }
         }
 
-        static bool ShouldSwap(IList<TValue> values, int i, int j, SortOrder sortOrder)
+        static bool ShouldSwap<TValue>(IList<TValue> values, int i, int j, SortOrder sortOrder) where TValue : IComparable<TValue>
         {
             return sortOrder == SortOrder.Ascending ? Lesser(values, i, j) : Greater(values, i, j);
         }
 
-        static bool Lesser(IList<TValue> values, int i, int j)
+        static bool Lesser<TValue>(IList<TValue> values, int i, int j) where TValue : IComparable<TValue>
         {
             return values[i].CompareTo(values[j]) < 0;
         }
 
-        static bool Greater(IList<TValue> values, int i, int j)
+        static bool Greater<TValue>(IList<TValue> values, int i, int j) where TValue : IComparable<TValue>
         {
             return values[i].CompareTo(values[j]) > 0;
         }
 
-        static void Swap(IList<TValue> values, int i, int j)
+        static void Swap<TValue>(IList<TValue> values, int i, int j) where TValue : IComparable<TValue>
         {
             var tmp = values[i];
             values[i] = values[j];

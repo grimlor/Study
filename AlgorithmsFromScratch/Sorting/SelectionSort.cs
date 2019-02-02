@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace AlgorithmsFromScratch.Sorting
 {
-    public static class SelectionSort<TValue> where TValue : IComparable<TValue>
+    public static class SelectionSort
     {
-        public static void Sort(IList<TValue> values, SortOrder sortOrder = SortOrder.Ascending)
+        public static void Sort<TValue>(IList<TValue> values, SortOrder sortOrder = SortOrder.Ascending) where TValue : IComparable<TValue>
         {
             for (int i = 0; i < values.Count - 1; i++)
             {
@@ -18,22 +18,22 @@ namespace AlgorithmsFromScratch.Sorting
             }
         }
 
-        static bool ShouldSwap(IList<TValue> values, int i, int j, SortOrder sortOrder)
+        static bool ShouldSwap<TValue>(IList<TValue> values, int i, int j, SortOrder sortOrder) where TValue : IComparable<TValue>
         {
             return sortOrder == SortOrder.Ascending ? Greater(values, i, j) : Lesser(values, i, j);
         }
 
-        static bool Lesser(IList<TValue> values, int i, int j)
+        static bool Lesser<TValue>(IList<TValue> values, int i, int j) where TValue : IComparable<TValue>
         {
             return values[i].CompareTo(values[j]) < 0;
         }
 
-        static bool Greater(IList<TValue> values, int i, int j)
+        static bool Greater<TValue>(IList<TValue> values, int i, int j) where TValue : IComparable<TValue>
         {
             return values[i].CompareTo(values[j]) > 0;
         }
 
-        static void Swap(IList<TValue> values, int i, int j)
+        static void Swap<TValue>(IList<TValue> values, int i, int j) where TValue : IComparable<TValue>
         {
             var tmp = values[i];
             values[i] = values[j];

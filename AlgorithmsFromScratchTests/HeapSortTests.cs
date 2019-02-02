@@ -14,7 +14,7 @@ namespace AlgorithmsFromScratchTests
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
-            HeapSort<int>.Sort(values);
+            HeapSort.Sort(values);
 
             values.AssertMinToMax();
         }
@@ -24,7 +24,7 @@ namespace AlgorithmsFromScratchTests
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
-            HeapSort<int>.Sort(values, SortOrder.Descending);
+            HeapSort.Sort(values, SortOrder.Descending);
 
             values.AssertMaxToMin();
         }
@@ -34,7 +34,7 @@ namespace AlgorithmsFromScratchTests
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
-            HeapSort<int>.SortWithHeap(values);
+            HeapSort.SortWithHeap(values);
 
             values.AssertMinToMax();
         }
@@ -44,7 +44,7 @@ namespace AlgorithmsFromScratchTests
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
-            HeapSort<int>.SortWithHeap(values);
+            HeapSort.SortWithHeap(values);
 
             values.AssertMinToMax();
         }

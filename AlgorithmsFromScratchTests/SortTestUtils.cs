@@ -7,24 +7,24 @@ namespace AlgorithmsFromScratchTests
     public static class SortTestUtils
     {
 
-        public static void AssertMinToMax(this IList<int> values)
+        public static void AssertMinToMax<TValue>(this IList<TValue> values) where TValue : IComparable<TValue>
         {
-            int currentValue = values[0];
+            var currentValue = values[0];
             for (int i = 1; i < values.Count; i++)
             {
-                int nextValue = values[i];
-                Assert.IsTrue(currentValue <= nextValue);
+                var nextValue = values[i];
+                Assert.IsTrue(currentValue.CompareTo(nextValue) <= 0);
                 currentValue = nextValue;
             }
         }
 
-        public static void AssertMaxToMin(this IList<int> values)
+        public static void AssertMaxToMin<TValue>(this IList<TValue> values) where TValue : IComparable<TValue>
         {
-            int currentValue = values[0];
+            var currentValue = values[0];
             for (int i = 1; i < values.Count; i++)
             {
-                int nextValue = values[i];
-                Assert.IsTrue(currentValue >= nextValue);
+                var nextValue = values[i];
+                Assert.IsTrue(currentValue.CompareTo(nextValue) >= 0);
                 currentValue = nextValue;
             }
         }

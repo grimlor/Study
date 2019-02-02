@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AlgorithmsFromScratch.Sorting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -5,24 +6,24 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace AlgorithmsFromScratchTests
 {
     [TestClass]
-    public class SelectionSortTests
+    public class ShellSortTests
     {
         [TestMethod]
-        public void SelectionSortSortsAscending()
+        public void ShellSortSortsAscending()
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
-            SelectionSort.Sort(values);
+            ShellSort.Sort(values);
 
             values.AssertMinToMax();
         }
 
         [TestMethod]
-        public void SelectionSortSortsDescending()
+        public void ShellSortSortsDescending()
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
-            SelectionSort.Sort(values, SortOrder.Descending);
+            ShellSort.Sort(values, SortOrder.Descending);
 
             values.AssertMaxToMin();
         }

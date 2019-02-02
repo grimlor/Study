@@ -17,5 +17,6 @@
     <Content Include="SortTestUtils.cs" />
     <Content Include="SelectionSortTests.cs" />
     <Content Include="InsertionSortTests.cs" />
+    <Content Include="ShellSortTests.cs" />
   </ItemGroup>
 </Project>

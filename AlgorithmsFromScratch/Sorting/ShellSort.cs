@@ -3,16 +3,23 @@ using System.Collections.Generic;
 
 namespace AlgorithmsFromScratch.Sorting
 {
-    public static class InsertionSort
+    public static class ShellSort
     {
         public static void Sort<TValue>(IList<TValue> values, SortOrder sortOrder = SortOrder.Ascending) where TValue : IComparable<TValue>
         {
-            for (int i = 1; i < values.Count; i++)
+            int h = 1;
+            while (h < values.Count) { h = 3 * h + 1; }
+
+            while (h >= 1)
             {
-                for (int j = i; j > 0 && ShouldSwap(values, j, j - 1, sortOrder); j--)
+                for (int i = h; i < values.Count; i++)
                 {
-                    Swap(values, j, j - 1);
+                    for (int j = i; j >= h && ShouldSwap(values, j, j - h, sortOrder); j -= h)
+                    {
+                        Swap(values, j, j - h);
+                    }
                 }
+                h /= 3;
             }
         }
 
@@ -31,7 +38,7 @@ namespace AlgorithmsFromScratch.Sorting
             return values[i].CompareTo(values[j]) > 0;
         }
 
-        static void Swap<TValue>(IList<TValue> values, int i, int j) where TValue : IComparable<TValue>
+        static void Swap<TValue>(IList<TValue> values, int i, int j)
         {
             var tmp = values[i];
             values[i] = values[j];
