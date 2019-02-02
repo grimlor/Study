@@ -8,7 +8,7 @@ namespace AlgorithmsFromScratchTests
     public class InsertionSortTests
     {
         [TestMethod]
-        public void SelectionSortSortsAscending()
+        public void SortsAscending()
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
@@ -18,7 +18,7 @@ namespace AlgorithmsFromScratchTests
         }
 
         [TestMethod]
-        public void SelectionSortSortsDescending()
+        public void SortsDescending()
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 

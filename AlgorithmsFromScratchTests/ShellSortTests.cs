@@ -9,7 +9,7 @@ namespace AlgorithmsFromScratchTests
     public class ShellSortTests
     {
         [TestMethod]
-        public void ShellSortSortsAscending()
+        public void SortsAscending()
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
@@ -19,7 +19,7 @@ namespace AlgorithmsFromScratchTests
         }
 
         [TestMethod]
-        public void ShellSortSortsDescending()
+        public void SortsDescending()
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 

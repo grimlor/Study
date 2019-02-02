@@ -10,7 +10,7 @@ namespace AlgorithmsFromScratchTests
     public class HeapSortTests
     {
         [TestMethod]
-        public void HeapSortSortsAscending()
+        public void SortsAscending()
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
@@ -20,7 +20,7 @@ namespace AlgorithmsFromScratchTests
         }
 
         [TestMethod]
-        public void HeapSortSortsDescending()
+        public void SortsDescending()
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
