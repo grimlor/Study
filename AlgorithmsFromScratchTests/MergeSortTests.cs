@@ -12,9 +12,7 @@ namespace AlgorithmsFromScratchTests
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
-            MergeSort.Sort(values);
-
-            values.AssertMinToMax();
+            values.SortAndAssertCorrectness(typeof(MergeSort));
         }
 
         [TestMethod]
@@ -22,9 +20,7 @@ namespace AlgorithmsFromScratchTests
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
-            MergeSort.Sort(values, SortOrder.Descending);
-
-            values.AssertMaxToMin();
+            values.SortAndAssertCorrectness(typeof(MergeSort), SortOrder.Descending);
         }
     }
 }
