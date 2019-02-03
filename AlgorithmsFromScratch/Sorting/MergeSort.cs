@@ -8,17 +8,13 @@ namespace AlgorithmsFromScratch.Sorting
         public static void Sort<TValue>(IList<TValue> values, SortOrder sortOrder = SortOrder.Ascending) where TValue : IComparable<TValue>
         {
             TValue[] aux = new TValue[values.Count];
-            Sort(values, 0, values.Count - 1, sortOrder, aux);
-        }
-
-        static void Sort<TValue>(IList<TValue> values, int lo, int hi, SortOrder sortOrder, TValue[] aux)
-            where TValue : IComparable<TValue>
-        {
-            if (hi <= lo) { return; }
-            int mid = lo + (hi - lo) / 2;
-            Sort(values, lo, mid, sortOrder, aux);
-            Sort(values, mid + 1, hi, sortOrder, aux);
-            Merge(values, lo, mid, hi, sortOrder, aux);
+            for (int sz = 1; sz < values.Count; sz *= 2)
+            {
+                for (int lo = 0; lo < values.Count - sz; lo += 2 * sz)
+                {
+                    Merge(values, lo, lo + sz - 1, Math.Min(lo + 2 * sz - 1, values.Count - 1), sortOrder, aux);
+                }
+            }
         }
 
         static void Merge<TValue>(IList<TValue> values, int lo, int mid, int hi, SortOrder sortOrder, TValue[] aux)

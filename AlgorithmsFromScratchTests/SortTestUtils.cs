@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AlgorithmsFromScratch.Sorting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AlgorithmsFromScratchTests
@@ -7,26 +8,29 @@ namespace AlgorithmsFromScratchTests
     public static class SortTestUtils
     {
 
-        public static void AssertMinToMax<TValue>(this IList<TValue> values) where TValue : IComparable<TValue>
+        public static void SortAndAssertCorrectness<TValue>(
+            this IList<TValue> values, Type sortType, SortOrder sortOrder = SortOrder.Ascending)
+            where TValue : IComparable<TValue>
         {
-            var currentValue = values[0];
-            for (int i = 1; i < values.Count; i++)
+            var sorted = new List<TValue>(values);
+
+            var sortMethodInfo = sortType.GetMethod("Sort").MakeGenericMethod(new [] { typeof(TValue) });
+            sortMethodInfo.Invoke(null, new object[] { sorted, sortOrder });
+
+            for (int i = 0; i < values.Count - 1; i++)
             {
-                var nextValue = values[i];
-                Assert.IsTrue(currentValue.CompareTo(nextValue) <= 0);
-                currentValue = nextValue;
+                Assert.IsTrue(sorted.Contains(values[i]));
+
+                AssertCorrectOrder(sorted, i, i + 1, sortOrder);
             }
+
+            Assert.IsTrue(sorted.Contains(values[values.Count - 1]));
         }
 
-        public static void AssertMaxToMin<TValue>(this IList<TValue> values) where TValue : IComparable<TValue>
+        static void AssertCorrectOrder<TValue>(IList<TValue> values, int i, int j, SortOrder sortOrder)
+            where TValue : IComparable<TValue>
         {
-            var currentValue = values[0];
-            for (int i = 1; i < values.Count; i++)
-            {
-                var nextValue = values[i];
-                Assert.IsTrue(currentValue.CompareTo(nextValue) >= 0);
-                currentValue = nextValue;
-            }
+            Assert.IsTrue(SortCommon.ShouldSwap(values, i, j, sortOrder));
         }
 
         public static IEnumerable<int> CreateRandomizedEnumerableOfValues(int maxSize = 10)
