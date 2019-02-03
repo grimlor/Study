@@ -13,9 +13,7 @@ namespace AlgorithmsFromScratchTests
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
-            ShellSort.Sort(values);
-
-            values.AssertMinToMax();
+            values.SortAndAssertCorrectness(typeof(ShellSort));
         }
 
         [TestMethod]
@@ -23,9 +21,7 @@ namespace AlgorithmsFromScratchTests
         {
             IList<int> values = SortTestUtils.CreateRandomizedListOfValues();
 
-            ShellSort.Sort(values, SortOrder.Descending);
-
-            values.AssertMaxToMin();
+            values.SortAndAssertCorrectness(typeof(ShellSort), SortOrder.Descending);
         }
     }
 }
