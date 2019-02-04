@@ -15,5 +15,6 @@
     <ProjectReference Include="..\CollectionsFromScratch\CollectionsFromScratch.csproj" />
     <Content Include="HeapTests.cs" />
     <Content Include="ArrayListTests.cs" />
+    <Content Include="LinkedListTests.cs" />
   </ItemGroup>
 </Project>
