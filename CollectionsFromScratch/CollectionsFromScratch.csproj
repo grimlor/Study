@@ -10,5 +10,6 @@
     <Content Include="Heaps\HeapType.cs" />
     <Content Include="Heaps\Heap.cs" />
     <Content Include="Lists\ArrayList.cs" />
+    <Content Include="Lists\LinkedList.cs" />
   </ItemGroup>
 </Project>
