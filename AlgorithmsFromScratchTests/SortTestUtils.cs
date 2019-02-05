@@ -14,8 +14,12 @@ namespace AlgorithmsFromScratchTests
         {
             var sorted = new List<TValue>(values);
 
-            var sortMethodInfo = sortType.GetMethod("Sort").MakeGenericMethod(new [] { typeof(TValue) });
-            sortMethodInfo.Invoke(null, new object[] { sorted, sortOrder });
+            var sortMethodInfo = sortType.GetMethod("Sort");
+            Assert.IsNotNull(sortMethodInfo, "Sort method is not implemented.");
+
+            var sortMethodInfoGeneric = sortMethodInfo.MakeGenericMethod(new [] { typeof(TValue) });
+            
+            sortMethodInfoGeneric.Invoke(null, new object[] { sorted, sortOrder });
 
             for (int i = 0; i < values.Count - 1; i++)
             {
