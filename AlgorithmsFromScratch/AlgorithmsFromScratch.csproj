@@ -14,5 +14,6 @@
     <Content Include="Sorting\ShellSort.cs" />
     <Content Include="Sorting\MergeSort.cs" />
     <Content Include="Sorting\SortCommon.cs" />
+    <Content Include="Sorting\QuickSort.cs" />
   </ItemGroup>
 </Project>
