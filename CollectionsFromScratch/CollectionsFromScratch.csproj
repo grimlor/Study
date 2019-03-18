@@ -11,5 +11,6 @@
     <Content Include="Heaps\Heap.cs" />
     <Content Include="Lists\ArrayList.cs" />
     <Content Include="Lists\LinkedList.cs" />
+    <Content Include="Bag.cs" />
   </ItemGroup>
 </Project>

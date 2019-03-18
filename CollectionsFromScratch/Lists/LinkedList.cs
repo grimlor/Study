@@ -38,6 +38,14 @@ namespace CollectionsFromScratch.Lists
             this.hasValue = false;
         }
 
+        public LinkedList(T value)
+        {
+            this.Value = value;
+            this.hasValue = true;
+            this.head = this;
+            this.tail = this;
+        }
+
         public LinkedList(IList<T> values)
         {
             foreach (var value in values)

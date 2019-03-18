@@ -16,5 +16,6 @@
     <Content Include="HeapTests.cs" />
     <Content Include="ArrayListTests.cs" />
     <Content Include="LinkedListTests.cs" />
+    <Content Include="BagTests.cs" />
   </ItemGroup>
 </Project>

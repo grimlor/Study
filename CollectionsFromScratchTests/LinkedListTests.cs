@@ -1,4 +1,3 @@
-using System.Linq;
 using CollectionsFromScratch.Lists;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
