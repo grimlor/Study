@@ -17,5 +17,6 @@
     <Content Include="ArrayListTests.cs" />
     <Content Include="LinkedListTests.cs" />
     <Content Include="BagTests.cs" />
+    <Content Include="QueueTests.cs" />
   </ItemGroup>
 </Project>

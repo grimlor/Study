@@ -6,11 +6,12 @@
     <RootNamespace>CollectionsFromScratch</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="Heaps\IHeap.cs" />
-    <Content Include="Heaps\HeapType.cs" />
-    <Content Include="Heaps\Heap.cs" />
     <Content Include="Lists\ArrayList.cs" />
     <Content Include="Lists\LinkedList.cs" />
     <Content Include="Bag.cs" />
+    <Content Include="Trees\Heaps\Heap.cs" />
+    <Content Include="Trees\Heaps\HeapType.cs" />
+    <Content Include="Trees\Heaps\IHeap.cs" />
+    <Content Include="Queue.cs" />
   </ItemGroup>
 </Project>
